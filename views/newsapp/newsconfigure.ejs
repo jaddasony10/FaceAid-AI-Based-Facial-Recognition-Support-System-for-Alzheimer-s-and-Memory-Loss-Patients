@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>News Settings</title>
+  <link rel="stylesheet" href="/stylesheets/app.css">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+  <script src="https://kit.fontawesome.com/3808de5cb1.js" crossorigin="anonymous"></script>
+
+  <style>
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background-color: #f8f9fa;
+      margin: 0;
+    }
+    .header {
+      display: flex;
+      align-items: center;
+      padding: 10px 20px;
+      background: linear-gradient(to right, #6a0dad, #8e2de2);
+      color: white;
+    }
+    .header img {
+      margin-right: 15px;
+    }
+    .container {
+      padding: 20px;
+      max-width: 600px;
+      margin: 30px auto;
+      text-align: center;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+    .custom-control {
+      display: inline-block;
+      margin: 10px 20px;
+      font-size: 1rem;
+    }
+    .custom-control-input {
+      margin-right: 5px;
+    }
+    .purp-btn {
+      background-color: #6a0dad;
+      color: white;
+      border: none;
+      padding: 10px 25px;
+      font-size: 1rem;
+      border-radius: 5px;
+      margin-top: 20px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    .purp-btn:hover {
+      background-color: #520a96;
+    }
+    @media (max-width: 768px) {
+      .custom-control {
+        display: block;
+        margin: 10px 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <a href="/home"><img src="/img/back.png" alt="Back" height="40"></a>
+    <h3>News Settings</h3>
+  </header>
+
+  <main class="container">
+    <h4>Select one of the following countries</h4>
+    <form action="/news" method="POST">
+      <% const selectedCountry = typeof country !== 'undefined' ? country : 'in'; %>
+      <div class="form-row align-items-center">
+        <div class="custom-control custom-radio">
+          <input type="radio" id="customRadio1" name="Country" value="in" <%= selectedCountry === 'in' ? 'checked' : '' %>>
+          <label for="customRadio1">India</label>
+        </div>
+        <div class="custom-control custom-radio">
+          <input type="radio" id="customRadio2" name="Country" value="us" <%= selectedCountry === 'us' ? 'checked' : '' %>>
+          <label for="customRadio2">USA</label>
+        </div>
+        <div class="custom-control custom-radio">
+          <input type="radio" id="customRadio3" name="Country" value="au" <%= selectedCountry === 'au' ? 'checked' : '' %>>
+          <label for="customRadio3">Australia</label>
+        </div>
+        <div class="custom-control custom-radio">
+          <input type="radio" id="customRadio4" name="Country" value="fr" <%= selectedCountry === 'fr' ? 'checked' : '' %>>
+          <label for="customRadio4">France</label>
+        </div>
+      </div>
+      <button type="submit" class="purp-btn">Submit</button>
+    </form>
+  </main>
+</body>
+</html>

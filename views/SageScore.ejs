@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Health Check Result</title>
+  <link rel="stylesheet" href="/stylesheets/app.css">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+  <script src="https://kit.fontawesome.com/3808de5cb1.js" crossorigin="anonymous"></script>
+  <style>
+    body {
+      background: linear-gradient(135deg, #d7e8ff, #efefff);
+      margin: 0;
+      font-family: 'Montserrat', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding-top: 4rem;
+      color: #444;
+    }
+    .container {
+      background: white;
+      max-width: 480px;
+      width: 95%;
+      padding: 2.5rem 2rem 3rem;
+      border-radius: 30px;
+      box-shadow: 0 10px 38px rgba(115, 103, 217, 0.2), 0 2px 15px rgba(79, 66, 191, 0.15);
+      text-align: center;
+    }
+    .header a img {
+      height: 50px;
+      border-radius: 50%;
+      box-shadow: 0 3px 12px rgba(79, 66, 191, 0.3);
+      transition: transform 0.3s ease;
+      cursor: pointer;
+      margin-bottom: 1.7rem;
+    }
+    .header a img:hover {
+      transform: scale(1.07);
+    }
+    h3.home-head {
+      font-size: 1.7rem;
+      font-weight: 700;
+      margin-bottom: 1.8rem;
+      color: #5845cc;
+    }
+    h5.home-head {
+      font-weight: 600;
+      font-size: 1.12rem;
+      line-height: 1.6;
+      margin-bottom: 2.4rem;
+      color: #333;
+    }
+    img {
+      width: 260px;
+      height: 260px;
+      object-fit: cover;
+      border-radius: 25px;
+      box-shadow: 0 9px 24px rgba(115, 103, 217, 0.25);
+      border: 4px solid #b2acff;
+      transition: box-shadow 0.3s ease;
+      margin-bottom: 1.7rem;
+    }
+    img:hover {
+      box-shadow: 0 13px 40px rgba(115, 103, 217, 0.38);
+    }
+    @media (max-width: 620px) {
+      img {
+        width: 200px;
+        height: 200px;
+        margin-bottom: 1.2rem;
+      }
+      .container {
+        padding: 1.8rem 1rem 2.4rem;
+        max-width: 360px;
+      }
+      h3.home-head {
+        font-size: 1.4rem;
+        margin-bottom: 1.6rem;
+      }
+      h5.home-head {
+        font-size: 1rem;
+        margin-bottom: 1.8rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <a href="/home">
+        <img src="/img/back.png" alt="Back" />
+      </a>
+    </div>
+    <h3 class="home-head">YOUR SCORE IS <%= myScore %></h3>
+
+    <% if(myScore <= 2) { %>
+      <h5 class="home-head">
+        You should see your doctor. You can refuel your brain and prevent further memory loss with food, vitamins, herbs, exercises, and medications.
+      </h5>
+      <img src="https://media.istockphoto.com/vectors/cute-nurse-emoticon-wearing-hat-and-stethoscope-emoji-smiley-isolated-vector-id1130255492?k=6&m=1130255492&s=612x612&w=0&h=6mUC1m99UBAmGpYzrOf54qrXKF_T0irDWBpUNgagO4k=" alt="Nurse Emoji"/>
+    <% } else if(myScore <= 4) { %>
+      <h5 class="home-head">
+        Your brain needs some exercises to stay sharp. Check your diet today. You can reduce brain drain and memory loss with vitamins, brain foods, herbs, yoga and meditation techniques, and appropriate medications.
+      </h5>
+      <img src="https://www.gannett-cdn.com/presto/2020/04/17/USAT/7620a49d-39e9-4db9-a96c-89f3d1deb1ae-facebookreact2.png?width=660&height=660&fit=crop&format=pjpg&auto=webp" alt="Brain Exercise"/>
+    <% } else { %>
+      <h5 class="home-head">
+        You are performing well. Continue to have your healthy routine and a healthy diet!
+      </h5>
+      <img src="https://i.pinimg.com/originals/b9/fd/a0/b9fda08ce78b724e0d74f66e3c4debec.jpg" alt="Healthy Routine"/>
+    <% } %>
+  </div>
+</body>
+</html>

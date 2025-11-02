@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Memory Game</title>
+
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&display=swap" rel="stylesheet">
+  <script src="https://kit.fontawesome.com/3808de5cb1.js" crossorigin="anonymous"></script>
+
+  <style>
+    /* Global Styles */
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background: linear-gradient(-45deg, #6a11cb, #2575fc, #ff758c, #ff7eb3);
+      background-size: 400% 400%;
+      animation: gradientBG 15s ease infinite;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px 0;
+    }
+
+    @keyframes gradientBG {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    /* Header */
+    .header {
+      width: 90%;
+      max-width: 700px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .header img {
+      height: 50px;
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .header img:hover {
+      transform: scale(1.2) rotate(-15deg);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    }
+
+    .settings h3 {
+      color: #fff;
+      margin: 0;
+      padding: 8px 15px;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(5px);
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .settings h3:hover {
+      transform: scale(1.1);
+      background: rgba(255, 255, 255, 0.4);
+    }
+
+    /* Win Message */
+    .win-message h2 {
+      color: #fff;
+      text-align: center;
+      font-size: 2rem;
+      margin-bottom: 25px;
+      opacity: 0;
+      animation: fadeInWin 1s forwards;
+    }
+
+    @keyframes fadeInWin {
+      to { opacity: 1; }
+    }
+
+    /* Memory Game Grid */
+    .memory-game {
+      width: 90%;
+      max-width: 700px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 15px;
+      perspective: 1000px;
+    }
+
+    .memory-card {
+      width: 100%;
+      position: relative;
+      transform-style: preserve-3d;
+      transition: transform 0.8s cubic-bezier(0.4, 0.2, 0.2, 1);
+      cursor: pointer;
+    }
+
+    .memory-card.flip {
+      transform: rotateY(180deg);
+    }
+
+    .memory-card img {
+      width: 100%;
+      display: block;
+      border-radius: 15px;
+      backface-visibility: hidden;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .memory-card .front-face {
+      transform: rotateY(180deg);
+    }
+
+    .memory-card:hover img {
+      transform: scale(1.05) rotateZ(1deg);
+      box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+    }
+
+    /* Match Animation */
+    .memory-card.match {
+      animation: matchGlow 0.8s ease forwards;
+    }
+
+    @keyframes matchGlow {
+      0% { box-shadow: 0 0 10px #fff; transform: scale(1); }
+      50% { box-shadow: 0 0 25px #ffea00; transform: scale(1.1); }
+      100% { box-shadow: 0 0 15px #fff; transform: scale(1); }
+    }
+
+    /* Responsive */
+    @media(max-width: 600px) {
+      .memory-game {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+      }
+      .win-message h2 {
+        font-size: 1.5rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="header">
+    <a href="/games">
+      <img src="/img/back.png" alt="Back">
+    </a>
+    <a href="/memorygame" class="settings">
+      <h3 id="play-again">Play Again</h3>
+    </a>
+  </div>
+
+  <div class="win-message">
+    <h2 id="win"></h2>
+  </div>
+
+  <section class="memory-game">
+    <div class="memory-card" data-framework="flower">
+      <img class="front-face" src="img/1.png" alt="flower" />
+      <img class="back-face" src="img/back.jpg" alt="back" />
+    </div>
+    <div class="memory-card" data-framework="flower">
+      <img class="front-face" src="img/1.png" alt="flower" />
+      <img class="back-face" src="img/back.jpg" alt="back" />
+    </div>
+
+    <div class="memory-card" data-framework="dog">
+      <img class="front-face" src="img/2.png" alt="dog" />
+      <img class="back-face" src="img/back.jpg" alt="back" />
+    </div>
+    <div class="memory-card" data-framework="dog">
+      <img class="front-face" src="img/2.png" alt="dog" />
+      <img class="back-face" src="img/back.jpg" alt="back" />
+    </div>
+
+    <div class="memory-card" data-framework="pot">
+      <img class="front-face" src="img/3.jpg" alt="pot" />
+      <img class="back-face" src="img/back.jpg" alt="back" />
+    </div>
+    <div class="memory-card" data-framework="pot">
+      <img class="front-face" src="img/3.jpg" alt="pot" />
+      <img class="back-face" src="img/back.jpg" alt="back" />
+    </div>
+
+    <div class="memory-card" data-framework="tree">
+      <img class="front-face" src="img/4.png" alt="tree" />
+      <img class="back-face" src="img/back.jpg" alt="back" />
+    </div>
+    <div class="memory-card" data-framework="tree">
+      <img class="front-face" src="img/4.png" alt="tree" />
+      <img class="back-face" src="img/back.jpg" alt="back" />
+    </div>
+
+    <div class="memory-card" data-framework="baby">
+      <img class="front-face" src="img/5.jpg" alt="baby" />
+      <img class="back-face" src="img/back.jpg" alt="back" />
+    </div>
+    <div class="memory-card" data-framework="baby">
+      <img class="front-face" src="img/5.jpg" alt="baby" />
+      <img class="back-face" src="img/back.jpg" alt="back" />
+    </div>
+
+    <div class="memory-card" data-framework="cow">
+      <img class="front-face" src="img/6.jpg" alt="cow" />
+      <img class="back-face" src="img/back.jpg" alt="back" />
+    </div>
+    <div class="memory-card" data-framework="cow">
+      <img class="front-face" src="img/6.jpg" alt="cow" />
+      <img class="back-face" src="img/back.jpg" alt="back" />
+    </div>
+  </section>
+
+  <script type="text/javascript" src="js/memory.js"></script>
+</body>
+
+</html>

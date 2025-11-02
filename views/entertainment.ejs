@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Entertainment</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="/stylesheets/app.css">
+
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Montserrat', sans-serif;
+            background: linear-gradient(120deg, #1f1f2e, #3a3a50);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            color: #fff;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Header */
+        .header {
+            display: flex;
+            align-items: center;
+            padding: 15px 20px;
+            background-color: #ff3c3c;
+            color: #fff;
+            font-weight: 700;
+            font-size: 1.8rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 100;
+            transition: box-shadow 0.3s, transform 0.3s;
+        }
+
+        .header:hover {
+            box-shadow: 0 8px 20px rgba(255, 255, 255, 0.7);
+            transform: scale(1.02);
+        }
+
+        .header img {
+            height: 35px;
+            margin-right: 15px;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .header img:hover {
+            transform: scale(1.2);
+        }
+
+        /* Main container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 120px 15px 20px 15px;
+        }
+
+        /* Sections row */
+        .sections-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .section-card {
+            background-color: rgba(46, 46, 62, 0.8);
+            flex: 1;
+            min-width: 250px;
+            border-radius: 16px;
+            padding: 20px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+            transition: transform 0.4s, box-shadow 0.4s, background 0.4s;
+            opacity: 0;
+            transform: translateY(50px);
+            animation: fadeInUp 1s forwards;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .section-card:nth-child(1) { animation-delay: 0.1s; }
+        .section-card:nth-child(2) { animation-delay: 0.3s; }
+        .section-card:nth-child(3) { animation-delay: 0.5s; }
+
+        .section-card:hover {
+            transform: translateY(-10px) scale(1.03);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+            background-color: rgba(58, 58, 80, 0.9);
+        }
+
+        .section-title {
+            font-weight: 700;
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: #ffeb3b;
+            text-align: center;
+        }
+
+        /* Grid for cards inside section */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 15px;
+        }
+
+        .card {
+            background: #505360;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 15px;
+            font-weight: 600;
+            text-align: center;
+            text-decoration: none;
+            color: #fff;
+            transition: transform 0.3s, background 0.3s, box-shadow 0.3s;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .card:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 10px 25px rgba(255, 255, 255, 0.4);
+            background: #ff6f61;
+        }
+
+        /* Brand colors */
+        .youtube { background: #FF0000; }
+        .instagram { background: #C13584; }
+        .netflix { background: #E50914; }
+        .primevideo { background: #00A8E1; }
+        .hotstar { background: #1C75BC; }
+        .aha { background: #FF4D4D; }
+        .zee5 { background: #FF9933; }
+        .chrome { background: #4285F4; }
+        .spotify { background: #1DB954; }
+        .applemusic { background: #FA57C1; }
+        .amazonmusic { background: #00A8E1; }
+        .googlearts { background: #4285F4; }
+        .pinterest { background: #E60023; }
+        .coloring { background: #FFB400; }
+
+        @media (max-width: 900px) {
+            .sections-row {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <a href="/home">
+            <img src="/img/back.png" alt="Back">
+        </a>
+        Entertainment
+    </div>
+
+    <div class="container">
+        <div class="sections-row">
+            <!-- Video Streaming -->
+            <div class="section-card">
+                <div class="section-title">Video Streaming</div>
+                <div class="card-grid">
+                    <a href="https://www.youtube.com" target="_blank" class="card youtube">YouTube</a>
+                    <a href="https://www.instagram.com" target="_blank" class="card instagram">Instagram</a>
+                    <a href="https://www.netflix.com" target="_blank" class="card netflix">Netflix</a>
+                    <a href="https://www.primevideo.com" target="_blank" class="card primevideo">Prime Video</a>
+                    <a href="https://www.hotstar.com/in" target="_blank" class="card hotstar">Jio Hotstar</a>
+                    <a href="https://www.aha.video" target="_blank" class="card aha">Aha</a>
+                    <a href="https://www.zee5.com" target="_blank" class="card zee5">Zee5</a>
+                    <a href="https://www.google.com/chrome/" target="_blank" class="card chrome">Chrome</a>
+                </div>
+            </div>
+
+            <!-- Music -->
+            <div class="section-card">
+                <div class="section-title">Music</div>
+                <div class="card-grid">
+                    <a href="https://www.spotify.com" target="_blank" class="card spotify">Spotify</a>
+                    <a href="https://music.apple.com" target="_blank" class="card applemusic">Apple Music</a>
+                    <a href="https://music.amazon.com" target="_blank" class="card amazonmusic">Amazon Music</a>
+                </div>
+            </div>
+
+            <!-- Creative & Arts -->
+            <div class="section-card">
+                <div class="section-title">Creative & Art</div>
+                <div class="card-grid">
+                    <a href="https://artsandculture.google.com" target="_blank" class="card googlearts">Google Arts & Culture</a>
+                    <a href="https://www.pinterest.com" target="_blank" class="card pinterest">Pinterest</a>
+                    <a href="https://www.justcolor.net" target="_blank" class="card coloring">Digital Coloring</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

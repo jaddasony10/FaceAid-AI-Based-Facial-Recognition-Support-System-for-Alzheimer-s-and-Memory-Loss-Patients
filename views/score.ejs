@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Guess Who Result</title>
+  <link rel="stylesheet" href="/stylesheets/app.css">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet" />
+  <script src="https://kit.fontawesome.com/3808de5cb1.js" crossorigin="anonymous"></script>
+  <style>
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background: #f5f6fa;
+      margin: 0;
+      padding-bottom: 3rem;
+    }
+    .header {
+      padding: 1.2rem 2rem 0.5rem 2rem;
+    }
+    .header img {
+      height: 42px;
+      cursor: pointer;
+      border-radius: 9px;
+      box-shadow: 0 2px 8px #cab9e8a0;
+      border: 1px solid #6a11cb;
+    }
+    .container.home-container {
+      max-width: 520px;
+      margin: 2rem auto 0 auto;
+      background: #fff;
+      border-radius: 18px;
+      box-shadow: 0 12px 38px rgba(82, 38, 170, 0.13), 0 2px 16px rgba(78,27,87,0.11);
+      padding: 2.8rem 1.4rem 2.5rem 1.4rem;
+    }
+    h2 {
+      font-size: 1.13rem;
+      font-weight: 700;
+      color: #4a0d66;
+      margin: 0 0 2.4rem 0;
+      text-align: center;
+      letter-spacing: 0.6px;
+    }
+    h3.home-head, h3.home-head-bottom {
+      font-size: 1.01rem;
+      color: #6a11cb;
+      font-weight: 600;
+      margin: 0.22rem 0 1.1rem 0;
+      text-align: left;
+    }
+    .quiz-block {
+      background: #f8f7fb;
+      box-shadow: 0 2px 12px #cab9e8a0;
+      border-radius: 16px;
+      padding: 1.44rem 1.05rem 1.25rem 1.05rem;
+      margin-bottom: 2.2rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 1.3rem;
+    }
+    .quiz-block img#relpic {
+      max-width: 130px;
+      max-height: 130px;
+      border-radius: 13px;
+      object-fit: cover;
+      box-shadow: 0 4px 13px #cab9e8a0;
+      margin: 0 auto 0 0;
+      display: block;
+      border: 2px solid #f3e9fc;
+    }
+    .quiz-details {
+      flex: 1;
+      min-width: 220px;
+      padding-top: 0.2rem;
+    }
+    .options, .home-head-bottom, .result, .correct-answer {
+      font-size: 0.95rem;
+      color: #2f3559;
+      margin: 0.18rem 0 0.19rem 0;
+      line-height: 1.5;
+    }
+    .green { color: #219150; font-weight: 600; }
+    .crimson { color: #ca1747; font-weight: 600;}
+    .hr-small {
+      height: 1px;
+      background-color: #cab9e8;
+      width: 95%;
+      border: none;
+      margin: 1.4rem auto 1.2rem auto;
+    }
+    .score-row {
+      text-align: center;
+      font-weight: 700;
+      color: #2575fc;
+      font-size: 1rem;
+      margin-bottom: 2.1rem;
+    }
+    @media (max-width: 600px) {
+      .container.home-container { padding: 1.3rem 0.1rem 1.2rem 0.1rem;}
+      .quiz-block { flex-direction: column; gap:0.4rem; align-items: center;}
+      .quiz-details { text-align:center; padding-top:0;}
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <a href="/guesswho">
+      <img src="/img/back.png" alt="" height="42px">
+    </a>
+  </div>
+  <div class="container home-container">
+    <div class="score-row">Score: <%=score%>/<%=all_questions.length%></div>
+    <h3 class="home-head home-head-bottom">Guess who?</h3>
+    <%let i=0%>
+    <% for(var question of all_questions){ %>
+      <div class="quiz-block">
+        <img id="relpic" src="data:image/<%=question.photo.contentType%>;base64,<%=question.photo.data.toString('base64')%>">
+        <div class="quiz-details">
+          <div class="home-head-bottom">Options</div>
+          <p class="options">1) <%=question.options[0]%></p>
+          <p class="options">2) <%=question.options[1]%></p>
+          <%if(boolarr[i]===true){%>
+            <div class="result">Your answer: <span class="green"><%=myanswer[i]%></span></div>
+            <div class="result green">You answered correctly!</div>
+          <%}else{%>
+            <div class="result">Your answer: <span class="crimson"><%=myanswer[i]%></span></div>
+            <div class="result crimson">You did not answer correctly...Keep trying!</div>
+            <p class="correct-answer">The correct answer is <%=correctansarr[i]%></p>
+          <%}%>
+        </div>
+      </div>
+      <div class="hr-small"></div>
+      <%i+=1%>
+    <%}%>
+  </div>
+</body>
+</html>

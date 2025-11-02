@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Add Relative</title>
+
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://kit.fontawesome.com/3808de5cb1.js" crossorigin="anonymous"></script>
+
+<style>
+    /* Body & Animated Gradient Background */
+    body {
+        font-family: 'Montserrat', sans-serif;
+        margin: 0;
+        padding: 0;
+        background: linear-gradient(-45deg, #74ebd5, #9face6, #ffdde1, #ee9ca7);
+        background-size: 400% 400%;
+        animation: gradientBG 20s ease infinite;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    @keyframes gradientBG {
+        0% {background-position: 0% 50%;}
+        50% {background-position: 100% 50%;}
+        100% {background-position: 0% 50%;}
+    }
+
+    /* Header */
+    .header {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        padding: 1rem 2rem;
+        background: rgba(255,255,255,0.15);
+        backdrop-filter: blur(8px);
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        animation: slideDown 0.8s ease forwards;
+    }
+
+    @keyframes slideDown {
+        from {opacity: 0; transform: translateY(-20px);}
+        to {opacity: 1; transform: translateY(0);}
+    }
+
+    .header img {
+        height: 40px;
+        cursor: pointer;
+        transition: transform 0.3s ease, filter 0.3s ease;
+        filter: brightness(0.7);
+    }
+
+    .header img:hover {
+        transform: scale(1.1) rotate(-5deg);
+        filter: brightness(1);
+    }
+
+    /* Container */
+    .container {
+        max-width: 500px;
+        width: 90%;
+        margin: 3rem auto;
+        background: rgba(255,255,255,0.9);
+        padding: 2rem;
+        border-radius: 16px;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        animation: fadeIn 1s ease forwards;
+    }
+
+    @keyframes fadeIn {
+        from {opacity: 0; transform: translateY(20px);}
+        to {opacity: 1; transform: translateY(0);}
+    }
+
+    h2 {
+        text-align: center;
+        font-weight: 700;
+        color: #4a0d66;
+        margin-bottom: 2rem;
+        text-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+
+    /* Alerts */
+    .alert {
+        padding: 1rem;
+        border-radius: 8px;
+        margin-bottom: 1rem;
+        font-size: 0.95rem;
+        text-align: center;
+        animation: popIn 0.5s ease forwards;
+    }
+
+    .alert-danger { background: #ffe5e5; color: #b30000; }
+    .alert-success { background: #e5ffe5; color: #006b00; }
+
+    @keyframes popIn {
+        from {opacity: 0; transform: scale(0.95);}
+        to {opacity: 1; transform: scale(1);}
+    }
+
+    /* Input Fields */
+    input[type="text"], input[type="file"] {
+        width: 100%;
+        padding: 0.8rem 1rem;
+        margin-bottom: 1rem;
+        border-radius: 12px;
+        border: 1px solid #ddd;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+    }
+
+    input[type="text"]:focus {
+        border-color: #6a11cb;
+        box-shadow: 0 0 8px rgba(106,17,203,0.3);
+        outline: none;
+    }
+
+    /* Animated Upload Button */
+    .upload-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        padding: 1rem;
+        border: 2px dashed #6a11cb;
+        border-radius: 12px;
+        color: #6a11cb;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        margin-bottom: 1rem;
+        background: rgba(106,17,203,0.05);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .upload-btn::after {
+        content: '';
+        position: absolute;
+        width: 120%;
+        height: 100%;
+        top: 0;
+        left: -120%;
+        background: linear-gradient(120deg, rgba(255,255,255,0.4), rgba(255,255,255,0));
+        transform: skewX(-25deg);
+        transition: all 0.5s ease;
+    }
+
+    .upload-btn:hover::after {
+        left: 120%;
+    }
+
+    .upload-btn:hover {
+        background: rgba(106,17,203,0.12);
+        transform: scale(1.02);
+    }
+
+    .hide { display: none; }
+
+    /* Submit Button */
+    button {
+        width: 100%;
+        padding: 0.9rem;
+        border: none;
+        border-radius: 12px;
+        background: linear-gradient(90deg, #6a11cb 0%, #2575fc 100%);
+        color: white;
+        font-size: 1.1rem;
+        font-weight: 700;
+        cursor: pointer;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    button:hover {
+        transform: scale(1.03);
+        box-shadow: 0 6px 20px rgba(106,17,203,0.3);
+    }
+</style>
+</head>
+
+<body>
+    <div class="header">
+        <a href="/circle"><img src="/img/back.png" alt="Back"></a>
+    </div>
+
+    <div class="container">
+        <% if(error && error.length > 0) { %>
+            <div class="alert alert-danger"><%= error %></div>
+        <% } %>
+
+        <% if(success && success.length > 0) { %>
+            <div class="alert alert-success"><%= success %></div>
+        <% } %>
+
+        <h2>Add Relative</h2>
+
+        <form method="post" action="/circleupload" enctype="multipart/form-data">
+            <input type="text" name="relName" placeholder="Relative Name" required>
+            <input type="text" name="relation" placeholder="Relation" required>
+
+            <label for="profilepics" class="upload-btn">
+                <i class="fas fa-upload"></i> Upload Photos
+            </label>
+            <input type="file" name="files" multiple class="hide" id="profilepics">
+
+            <button type="submit">Upload</button>
+        </form>
+    </div>
+</body>
+</html>

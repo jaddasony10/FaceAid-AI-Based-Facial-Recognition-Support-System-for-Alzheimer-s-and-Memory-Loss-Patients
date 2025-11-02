@@ -1,0 +1,107 @@
+
+:root{
+	--purple: #4A0D66;
+}
+
+*{
+	padding: 0;
+	margin:0;
+	box-sizing: border-box;
+}
+
+body{
+	height: 100vh;
+	background-color: #fff;
+	display: flex;
+	flex-direction: column;
+	font-family: 'Montserrat', sans-serif;
+
+
+}
+.settings{
+	text-decoration: none;
+	color: white;
+	float: right;
+}
+.header{
+	background-color: var(--purple);
+	position: fixed;
+	width: 100%;
+	padding: 1rem;
+}
+.header>i, .header>h3{
+	color: white;
+	display: inline;
+}
+.header>i{
+	float: right
+}
+.header>h3{
+	font-size: 5rem;
+	position: absolute;
+	left: 50%;
+	transform: translateX(-50%);
+}
+.memory-game{
+	width: 90vw;
+	height: 90vw;
+	margin: auto;
+	display: flex;
+	flex-wrap: wrap;
+	perspective: 1000px;
+	
+}
+.memory-card{
+	width: calc(25% - 10px);
+	height: calc(33.33% - 10px);
+	position: relative;
+	margin: 5px;
+	transform: scale(1);
+	transform-style: preserve-3d;
+	transition: transform .5s;
+	
+
+}
+
+.memory-card:active{
+	transform: scale(.97);
+	transition: transform .2s;
+}
+
+.memory-card.flip {
+	transform: rotateY(180deg);
+}
+
+.front-face,
+.back-face {
+	width: 100%;
+	height: 100%;
+	padding: 20px;
+	border-radius: 5px;
+	position: absolute;
+	background: var(--purple);
+	border: 2px solid deeppink;
+	backface-visibility: hidden;
+}
+
+.front-face {
+	transform: rotateY(180deg);
+}
+
+img{
+	width: 100px;
+}
+#back{
+	width: auto;
+}
+h2{
+	font-size: 2rem;
+	margin-bottom: 4rem;
+	text-align: center;
+}
+
+.win-message {
+	color: black;
+	margin-top: 10rem;
+	
+}

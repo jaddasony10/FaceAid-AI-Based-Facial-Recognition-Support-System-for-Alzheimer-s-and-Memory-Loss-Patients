@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Alzheimer's Care</title>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <script src="https://kit.fontawesome.com/3808de5cb1.js" crossorigin="anonymous"></script>
+
+    <style>
+        /* ---------- Global Styles ---------- */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: #fff;
+        }
+
+        /* ---------- Container ---------- */
+        .container {
+            background: rgba(255, 255, 255, 0.08);
+            padding: 3rem 2rem;
+            border-radius: 20px;
+            backdrop-filter: blur(16px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+            width: 350px;
+            max-width: 90%;
+            text-align: center;
+            animation: fadeIn 1s ease forwards;
+        }
+
+        h2 {
+            margin-bottom: 2rem;
+            font-weight: 700;
+            font-size: 2rem;
+            text-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        /* ---------- Input Fields ---------- */
+        .form-control {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            margin-bottom: 1.2rem;
+            border-radius: 12px;
+            border: none;
+            font-size: 1rem;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus {
+            background: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        /* ---------- Button ---------- */
+        .purp-btn {
+            width: 100%;
+            padding: 0.9rem 0;
+            background: linear-gradient(135deg, #743ad5, #d53a9d);
+            color: #fff;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .purp-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        /* ---------- Alerts ---------- */
+        .alert {
+            padding: 0.8rem 1rem;
+            margin-bottom: 1rem;
+            border-radius: 12px;
+            font-weight: 600;
+            animation: fadeIn 0.8s ease forwards;
+        }
+
+        .alert-danger {
+            background: rgba(255, 0, 0, 0.2);
+            color: #ffdddd;
+            border: 1px solid #ff5555;
+        }
+
+        .alert-success {
+            background: rgba(0, 255, 0, 0.2);
+            color: #ddffdd;
+            border: 1px solid #55ff55;
+        }
+
+        /* ---------- Header Back Button ---------- */
+        .header {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+        }
+
+        .header img {
+            width: 50px;
+            height: 50px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .header img:hover {
+            transform: scale(1.1);
+        }
+
+        /* ---------- Animations ---------- */
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+                transform: translateY(15px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <a href="../">
+            <img src="/img/back.png" alt="Back">
+        </a>
+    </div>
+
+    <div class="container">
+        <% if(error && error.length>0){ %>
+            <div class="alert alert-danger" role="alert">
+                <%= error %>
+            </div>
+        <% } %>
+
+        <% if(success && success.length>0){ %>
+            <div class="alert alert-success" role="alert">
+                <%= success %>
+            </div>
+        <% } %>
+
+        <h2>Login</h2>
+
+        <form action="/login" method="POST">
+            <input type="text" name="username" class="form-control" placeholder="Username" required>
+            <input type="password" name="password" class="form-control" placeholder="Password" required>
+            <input type="submit" class="purp-btn" value="Login">
+        </form>
+    </div>
+</body>
+</html>

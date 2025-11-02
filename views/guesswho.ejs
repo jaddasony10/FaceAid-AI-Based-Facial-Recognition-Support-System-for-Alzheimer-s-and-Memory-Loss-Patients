@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&display=swap" rel="stylesheet">
+  <script src="https://kit.fontawesome.com/3808de5cb1.js" crossorigin="anonymous"></script>
+  <title>Guess Who?</title>
+  <style>
+    /* Body & Background */
+    body {
+      font-family: 'Montserrat', sans-serif;
+      margin: 0;
+      padding-bottom: 3rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background: linear-gradient(135deg, #f0f2f5, #dff0fd, #e0ffe0, #fff0f5);
+      background-size: 400% 400%;
+      animation: bgGradient 20s ease infinite;
+    }
+
+    @keyframes bgGradient {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    /* Header */
+    .header {
+      padding: 1rem 2rem;
+      width: 100%;
+      display: flex;
+      align-items: center;
+    }
+
+    .header img {
+      height: 50px;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+
+    .header img:hover {
+      transform: scale(1.2) rotate(-15deg);
+    }
+
+    /* Container */
+    .container {
+      max-width: 650px;
+      width: 90%;
+      margin: 3rem auto;
+      background: white;
+      padding: 2rem 2rem 3rem 2rem;
+      border-radius: 20px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+      animation: fadeIn 1s ease forwards;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    h2 {
+      font-weight: 700;
+      font-size: 2rem;
+      color: #4a0d66;
+      margin-bottom: 2.5rem;
+      text-align: center;
+    }
+
+    /* Quiz Cards */
+    .quiz {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 2em;
+      border-radius: 15px;
+      padding: 1.5em;
+      background: linear-gradient(145deg, #ffffff, #f2f5ff);
+      box-shadow: 0 6px 20px rgba(106,17,203,0.12);
+      border: 1px solid #f0f0f5;
+      opacity: 0;
+      animation: fadeInQuiz 0.6s forwards;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .quiz:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(106,17,203,0.25);
+    }
+
+    @keyframes fadeInQuiz {
+      to { opacity: 1; }
+    }
+
+    .quiz img {
+      width: 180px;
+      height: 180px;
+      border-radius: 15px;
+      object-fit: cover;
+      box-shadow: 0 4px 18px rgba(106,17,203,0.15);
+      transition: transform 0.3s ease;
+    }
+
+    .quiz img:hover {
+      transform: scale(1.05) rotate(-1deg);
+    }
+
+    /* Options */
+    .form-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem 1.5rem;
+      justify-content: center;
+      width: 100%;
+    }
+
+    .custom-control {
+      flex: 1 1 45%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 0.6rem 1rem;
+      border-radius: 12px;
+      cursor: pointer;
+      background: #f9f9ff;
+      box-shadow: 0 4px 12px rgba(106,17,203,0.08);
+      transition: transform 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .custom-control:hover {
+      transform: scale(1.03);
+      background: #e7e7ff;
+      box-shadow: 0 6px 18px rgba(106,17,203,0.15);
+    }
+
+    .custom-control-input {
+      cursor: pointer;
+      width: 20px;
+      height: 20px;
+    }
+
+    label.custom-control-label {
+      font-size: 1.05rem;
+      cursor: pointer;
+      user-select: none;
+      color: #333;
+      transition: color 0.3s ease, font-weight 0.3s ease;
+    }
+
+    .custom-control-input:checked + .custom-control-label {
+      color: #6a11cb;
+      font-weight: 600;
+    }
+
+    /* Submit Button */
+    .purp-btn {
+      background: linear-gradient(90deg, #6a11cb 0%, #2575fc 100%);
+      border: none;
+      width: 100%;
+      padding: 1rem;
+      color: white;
+      font-weight: 700;
+      font-size: 1.2rem;
+      border-radius: 15px;
+      cursor: pointer;
+      box-shadow: 0 8px 25px rgba(106,17,203,0.3);
+      transition: transform 0.3s ease, opacity 0.3s ease, box-shadow 0.3s ease;
+      margin-top: 1rem;
+    }
+
+    .purp-btn:hover {
+      transform: scale(1.02);
+      opacity: 0.95;
+      box-shadow: 0 10px 30px rgba(106,17,203,0.35);
+    }
+
+    /* Responsive */
+    @media (max-width: 576px) {
+      .quiz img { width: 140px; height: 140px; }
+      .custom-control { flex: 1 1 100%; }
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <a href="/home">
+      <img src="/img/back.png" alt="Back" />
+    </a>
+  </div>
+
+  <div class="container">
+    <h2>Guess Who?</h2>
+    <%var i=0 %>
+    <form action="/guesswho/checkanswer" method="POST" id="guesswhoform">
+      <%for(var question of all_questions){ %>
+        <% i+=1 %>
+        <div class="quiz" style="animation-delay: <%= i*0.15 %>s;">
+          <img src="data:image/<%=question.photo.contentType%>;base64,<%=question.photo.data.toString('base64')%>" alt="Relation Picture" />
+          <div class="form-row align-items-center">
+            <% for(var j=0; j<question.options.length; j++){ %>
+            <div class="custom-control custom-radio">
+              <input type="radio" id="<%= 'customRadio'+i+'-'+j %>" name="<%= 'Choice'+i %>" class="custom-control-input" value="<%= question.options[j] %>">
+              <label class="custom-control-label" for="<%= 'customRadio'+i+'-'+j %>"><%= question.options[j] %></label>
+            </div>
+            <% } %>
+          </div>
+        </div>
+      <% } %>
+      <button type="submit" class="purp-btn">Submit</button>
+    </form>
+  </div>
+</body>
+</html>

@@ -1,0 +1,244 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>  
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Your Progress Dashboard</title>
+
+  <link rel="stylesheet" href="/stylesheets/app.css">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+  <script src="https://kit.fontawesome.com/3808de5cb1.js" crossorigin="anonymous"></script>
+
+  <style>
+    /* Background and Layout */
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Montserrat', sans-serif;
+      background: radial-gradient(circle at top left, #a1c4fd 0%, #c2e9fb 100%);
+      color: #222;
+      overflow-x: hidden;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+    }
+
+    /* Header */
+    .header {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      z-index: 10;
+    }
+
+    .header img {
+      height: 55px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      filter: drop-shadow(0 2px 6px rgba(0,0,0,0.3));
+    }
+
+    .header img:hover {
+      transform: scale(1.1) rotate(-6deg);
+      filter: drop-shadow(0 6px 15px rgba(0,0,0,0.4));
+    }
+
+    /* Container */
+    .container {
+      max-width: 1200px;
+      width: 90%;
+      margin-top: 120px;
+      background: rgba(255, 255, 255, 0.3);
+      backdrop-filter: blur(15px);
+      border-radius: 20px;
+      padding: 40px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+      text-align: center;
+      animation: fadeInUp 1s ease forwards;
+    }
+
+    /* Title */
+    .home-head {
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: #1f1f1f;
+      margin-bottom: 10px;
+      animation: fadeInDown 1s ease;
+    }
+
+    .home-head2 {
+      font-size: 1.2rem;
+      color: #444;
+      opacity: 0.9;
+      margin: 10px 0;
+    }
+
+    /* Stat badges in a flexible grid */
+    .stats-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 15px;
+      margin-top: 25px;
+      margin-bottom: 40px;
+    }
+
+    .stat-badge {
+      flex: 1 1 250px;
+      max-width: 280px;
+      background: linear-gradient(135deg, rgba(255,255,255,0.25), rgba(255,255,255,0.1));
+      backdrop-filter: blur(10px);
+      border-radius: 16px;
+      padding: 15px 20px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+      transition: all 0.3s ease;
+      font-weight: 600;
+      font-size: 1.05rem;
+      color: #222;
+    }
+
+    .stat-badge:hover {
+      transform: translateY(-5px) scale(1.03);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+      background: linear-gradient(135deg, rgba(106,17,203,0.2), rgba(37,117,252,0.2));
+    }
+
+    /* Chart Cards */
+    .chart-card {
+      width: 100%;
+      background: rgba(255,255,255,0.25);
+      border-radius: 20px;
+      padding: 20px;
+      margin-bottom: 30px;
+      backdrop-filter: blur(12px);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+      animation: fadeIn 1.2s ease;
+    }
+
+    #chartContainer, #chartContainerSage {
+      height: 420px; 
+      width: 100%;
+      border-radius: 15px;
+    }
+
+    /* Footer message */
+    p.message {
+      font-size: 1.2rem;
+      font-weight: 500;
+      color: #111;
+      margin-top: 15px;
+      animation: fadeIn 1.4s ease;
+    }
+
+    /* Animations */
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeInDown {
+      from { opacity: 0; transform: translateY(-30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.98); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        padding: 25px;
+      }
+      .home-head {
+        font-size: 1.8rem;
+      }
+      .stat-badge {
+        font-size: 0.95rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Back Button -->
+  <div class="header">
+    <img src="/img/back.png" id="backBtn" alt="Back">
+  </div>
+
+  <!-- Dashboard Container -->
+  <div class="container">
+    <h3 class="home-head">Welcome, <%= CurrentUser.name %> 👋</h3>
+
+    <div class="stats-container">
+      <div class="stat-badge">🎯 Last "Guess Who" Score: <strong><%= CurrentUser.scores[CurrentUser.scores.length - 1] %></strong></div>
+      <div class="stat-badge">🧠 Last "SAGE" Score: <strong><%= CurrentUser.sageScores[CurrentUser.sageScores.length - 1] %></strong></div>
+      <div class="stat-badge">🏆 Highest "Guess Who" Score: <strong><%= Math.max(...CurrentUser.scores) %></strong></div>
+      <div class="stat-badge">💎 Highest "SAGE" Score: <strong><%= Math.max(...CurrentUser.sageScores) %></strong></div>
+    </div>
+
+    <!-- Chart 1 -->
+    <div class="chart-card">
+      <div id="chartContainer"></div>
+    </div>
+
+    <!-- Chart 2 -->
+    <div class="chart-card">
+      <div id="chartContainerSage"></div>
+    </div>
+
+    <p class="message"><%= message %></p>
+  </div>
+
+  <!-- Chart JS -->
+  <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+  <script>
+    // Back Button Redirect
+    document.getElementById("backBtn").addEventListener("click", () => {
+      window.location.href = "/home";
+    });
+
+    // Chart Rendering
+    window.onload = function () {
+      const dataPoints = JSON.parse('<%- JSON.stringify(lastScores) %>');
+      const dataPointsSage = JSON.parse('<%- JSON.stringify(lastScoresSage) %>');
+
+      const chart = new CanvasJS.Chart("chartContainer", {
+        animationEnabled: true,
+        backgroundColor: "transparent",
+        theme: "light2",
+        title: { text: "📊 Guess Who Progress", fontSize: 22, fontColor: "#1f1f1f" },
+        axisY: { title: "Score", lineColor: "#4a0d66", labelFontSize: 14 },
+        data: [{
+          type: "splineArea",
+          color: "rgba(106,17,203,0.45)",
+          markerSize: 8,
+          lineThickness: 3,
+          dataPoints
+        }]
+      });
+
+      const chartSage = new CanvasJS.Chart("chartContainerSage", {
+        animationEnabled: true,
+        backgroundColor: "transparent",
+        theme: "light2",
+        title: { text: "🧩 SAGE Test Progress", fontSize: 22, fontColor: "#1f1f1f" },
+        axisY: { title: "Score", lineColor: "#2575fc", labelFontSize: 14 },
+        data: [{
+          type: "splineArea",
+          color: "rgba(37,117,252,0.45)",
+          markerSize: 8,
+          lineThickness: 3,
+          dataPoints: dataPointsSage
+        }]
+      });
+
+      chart.render();
+      chartSage.render();
+    };
+  </script>
+</body>
+</html>
